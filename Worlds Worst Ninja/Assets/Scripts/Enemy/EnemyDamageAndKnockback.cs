@@ -5,7 +5,10 @@ using UnityEngine;
 public class EnemyDamageAndKnockback : MonoBehaviour
 {
     public float Health=10f;
-    public bool IsFront, IsBack,IsAlert;
+
+    public float damageReductionValue = 2f;
+
+    public bool IsFront, IsBack;
     private Rigidbody2D _rb;
     private Arrow arrow;
     private WeaponStat _WS;
@@ -20,10 +23,6 @@ public class EnemyDamageAndKnockback : MonoBehaviour
     private void Update()
     {
         _WS = FindObjectOfType<WeaponStat>();
-        if(Health<=0)
-        {
-            Destroy(this.gameObject);
-        }
     }
     // Update is called once per frame
     public void HitEnemy()
@@ -36,7 +35,16 @@ public class EnemyDamageAndKnockback : MonoBehaviour
         {
             _rb.AddForceAtPosition(arrow.dir * 100f * _WS.WeaponForce, arrow.hitEnemy.point);
         }
-        Health -= _WS.WeaponDamage;
+
+        if (GetComponent<EnemyAI>().playerSeen == false)
+            Health -= _WS.WeaponDamage;
+        else
+            Health -= _WS.WeaponDamage / damageReductionValue;
+
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
 
         Debug.Log("Hi");
     }

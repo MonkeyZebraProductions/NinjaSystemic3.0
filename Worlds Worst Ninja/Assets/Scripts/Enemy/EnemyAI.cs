@@ -40,6 +40,11 @@ public class EnemyAI : MonoBehaviour
     public float forgetPlayerTimer = 10f;
     private float timer;
 
+
+    [Header("Looking around")]
+    public float lookingAroundTimer = 3f;
+    private bool lookingAround = false;
+
     [HideInInspector] public bool goingRight = false;
 
     private void Start()
@@ -80,6 +85,13 @@ public class EnemyAI : MonoBehaviour
         {
             timer = forgetPlayerTimer;
         }
+
+        // Checking if the enemy is standing still to look around
+
+        if (rb.velocity.x <= 0.1f && !lookingAround)
+        {
+            StartCoroutine(LookAround());
+        }
     }
 
     private void FixedUpdate()
@@ -91,6 +103,23 @@ public class EnemyAI : MonoBehaviour
                 PathFollow();
             }
         }
+    }
+
+    IEnumerator LookAround()
+    {
+        lookingAround = true;
+
+        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        goingRight = false;
+
+        yield return new WaitForSeconds(lookingAroundTimer);
+
+        transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        goingRight = true;
+
+        yield return new WaitForSeconds(lookingAroundTimer);
+
+        lookingAround = false;
     }
 
     private void UpdatePath()
