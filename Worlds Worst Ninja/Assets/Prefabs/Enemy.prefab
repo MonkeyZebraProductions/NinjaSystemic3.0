@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1098539456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1098539457}
+  m_Layer: 12
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1098539457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098539456}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3141676383871916939}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1876267664
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1876267665}
   - component: {fileID: 1876267666}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,9 +125,11 @@ GameObject:
   - component: {fileID: 3141676383871916663}
   - component: {fileID: 3141676383871916656}
   - component: {fileID: 3141676383871916660}
-  m_Layer: 0
+  - component: {fileID: 1950054249}
+  - component: {fileID: 4118992948481157777}
+  m_Layer: 12
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +148,7 @@ Transform:
   - {fileID: 3141676385300569881}
   - {fileID: 3141676384607990600}
   - {fileID: 3141676385351120798}
+  - {fileID: 1098539457}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -134,7 +167,7 @@ Rigidbody2D:
   m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -189,11 +222,14 @@ MonoBehaviour:
   speed: 500
   nextWaypointDist: 1
   jumpNodeHeightRequirement: 0.8
-  jumpModifier: 50
+  jumpModifier: 40
   jumpCheckOffset: 0.01
   followEnabled: 1
   jumpEnabled: 1
   directionLookEnabled: 1
+  playerSeen: 0
+  forgetPlayerTimer: 5
+  lookingAroundTimer: 2
   goingRight: 0
 --- !u!70 &3141676383871916660
 CapsuleCollider2D:
@@ -209,8 +245,41 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1.2}
   m_Direction: 0
+--- !u!114 &1950054249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3141676383871916938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ac2cb28ca27894a9e54b1a94d60c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 1
+  enemyDamage: 10
+  bulletPrefab: {fileID: 3846328035569677934, guid: 06eee684e35123449885b4a17272dedf, type: 3}
+  firePoint: {fileID: 1098539457}
+  forcedShoot: 0
+--- !u!114 &4118992948481157777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3141676383871916938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00a4556510a18849a30edc373ba7e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 10
+  damageReductionValue: 2
+  IsFront: 0
+  IsBack: 0
 --- !u!1 &3141676384607990607
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +418,7 @@ GameObject:
   - component: {fileID: 3141676385351120798}
   - component: {fileID: 3141676385351120799}
   - component: {fileID: 3141676385351120792}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Vision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3141676385351120797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1876267665}
@@ -383,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72edf86c5f3173b439bd43b218dab54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useRaycast: 0
+  useRaycast: 1
   playerLayer:
     serializedVersion: 2
     m_Bits: 2048

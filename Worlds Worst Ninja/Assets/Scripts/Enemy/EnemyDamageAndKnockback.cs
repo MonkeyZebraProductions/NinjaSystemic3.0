@@ -48,4 +48,14 @@ public class EnemyDamageAndKnockback : MonoBehaviour
 
         Debug.Log("Hi");
     }
+
+    public void FirendlyFire(int damage)
+    {
+        Health -= damage;
+
+        if(Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

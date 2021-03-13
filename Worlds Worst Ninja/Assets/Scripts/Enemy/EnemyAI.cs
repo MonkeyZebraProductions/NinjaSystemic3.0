@@ -46,6 +46,7 @@ public class EnemyAI : MonoBehaviour
     private bool lookingAround = false;
 
     [HideInInspector] public bool goingRight = false;
+    [HideInInspector] public bool canLookAround = true;
 
     private void Start()
     {
@@ -77,6 +78,8 @@ public class EnemyAI : MonoBehaviour
 
             if (timer <= 0)
             {
+                canLookAround = true;
+
                 targetPos = null;
                 timer = forgetPlayerTimer;
             }
@@ -90,7 +93,8 @@ public class EnemyAI : MonoBehaviour
 
         if (rb.velocity.x <= 0.1f && !lookingAround)
         {
-            StartCoroutine(LookAround());
+            if(canLookAround)
+                StartCoroutine(LookAround());
         }
     }
 
