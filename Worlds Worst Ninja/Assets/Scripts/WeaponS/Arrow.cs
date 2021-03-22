@@ -13,17 +13,19 @@ public class Arrow : MonoBehaviour
 
     public float angle;
 
-    public LayerMask WhatIsGround, WhatIsEnemy,WhatIsFront,WhatIsBack;
+    public LayerMask WhatIsGround, WhatIsEnemy,WhatIsFront,WhatIsBack, WhatIsWall;
 
     public Vector2 dir, point;
 
     public bool _hitFront,_hitBack;
 
-    private bool _hitground, _hitenemy;
+    private bool _hitground, _hitenemy, _hitwall;
 
     public GameObject Debris, Sound, Particles, BurstPart;
 
-    public RaycastHit2D hitGround,hitEnemy;
+    public Transform Spawner;
+
+    public RaycastHit2D hitGround, hitEnemy, hitWall;
 
 
     private PlayerMovement _pm;
@@ -34,6 +36,8 @@ public class Arrow : MonoBehaviour
 
     private GameObject _currentEnemy;
 
+    private LineRenderer line;
+
     private void Awake()
     {
         inputs = new Controls();
@@ -43,7 +47,7 @@ public class Arrow : MonoBehaviour
     void Start()
     {
         _pm = FindObjectOfType<PlayerMovement>();
-        
+        line = GetComponent<LineRenderer>();
 
     }
 
@@ -82,9 +86,11 @@ public class Arrow : MonoBehaviour
         _hitFront = Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsFront);
 
         _hitground = hitGround = Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsGround);
-       
-        _hitenemy= hitEnemy=Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsEnemy);
-        Debug.DrawRay(transform.position, dir * maxRadius, Color.green);
+
+        _hitwall = hitWall = Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsWall);
+
+        _hitenemy = hitEnemy=Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsEnemy);
+        line.SetPosition(1, new Vector3(maxRadius, 0, 0));
     }
 
     public void HitEnemy()
@@ -108,10 +114,16 @@ public class Arrow : MonoBehaviour
             Instantiate(Sound, hitGround.point, Quaternion.identity);
             Instantiate(Particles, hitGround.point, Quaternion.identity);
         }
+        if (_hitwall == true)
+        {
+            Instantiate(Debris, hitWall.point, Quaternion.identity);
+            Instantiate(Sound, hitWall.point, Quaternion.identity);
+            Instantiate(Particles, hitWall.point, Quaternion.identity);
+        }
 
         if (_WS.IsExplosive)
         {
-            Instantiate(_WS.Rocket, transform.position, Quaternion.identity);
+            Instantiate(_WS.Rocket, Spawner.position, Quaternion.identity);
         }
 
     }

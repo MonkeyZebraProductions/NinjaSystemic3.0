@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 651511563215237658}
   - component: {fileID: 651511563215237659}
   - component: {fileID: 651511563215237660}
+  - component: {fileID: -6576765116259714325}
   m_Layer: 0
   m_Name: Shotty Parts
   m_TagString: Untagged
@@ -4813,3 +4814,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-6576765116259714325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651511563215237661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930ef5db51a903444bec3e891bd9e96e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 1

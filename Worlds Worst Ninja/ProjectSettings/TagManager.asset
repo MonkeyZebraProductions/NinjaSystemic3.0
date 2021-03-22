@@ -45,3 +45,6 @@ TagManager:
   - name: Bg
     uniqueID: 1274095543
     locked: 0
+  - name: hi
+    uniqueID: 4226114791
+    locked: 0
