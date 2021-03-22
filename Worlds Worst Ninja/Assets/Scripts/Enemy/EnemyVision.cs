@@ -55,7 +55,7 @@ public class EnemyVision : MonoBehaviour
         {
             GetComponent<Collider2D>().enabled = false;
 
-            Vector3 raycastOffset = new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z);
+            Vector3 raycastOffset = new Vector3(transform.position.x, transform.position.y + 0.4f, transform.position.z);
 
             if (GetComponentInParent<EnemyAI>().goingRight == true)
             {
