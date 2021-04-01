@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1098539456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: -1.75, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3141676383871916939}
@@ -231,6 +231,7 @@ MonoBehaviour:
   forgetPlayerTimer: 5
   lookingAroundTimer: 2
   goingRight: 0
+  canLookAround: 1
 --- !u!70 &3141676383871916660
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -324,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alwaysShowHearingRange: 0
-  hearingRange: 10
+  hearingRange: 0.72
 --- !u!1 &3141676385300569880
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,8 +6,10 @@ public class WeaponSwitch : MonoBehaviour
 {
     public SpriteRenderer WeaponSprite;
     public List<Sprite> WeapSprites;
-    public List<GameObject> Weapons;
+    public List<GameObject> Weapons,Colliders;
 
+    private PlayerMovement _pm;
+    private WeaponStat _WS;
     private int index;
 
     private Controls inputs;
@@ -22,7 +24,8 @@ public class WeaponSwitch : MonoBehaviour
         // Start is called before the first frame update
     void Start()
     {
-        
+        _pm = FindObjectOfType<PlayerMovement>();
+        _WS = FindObjectOfType<WeaponStat>();
     }
 
     // Update is called once per frame
@@ -34,23 +37,27 @@ public class WeaponSwitch : MonoBehaviour
     void SwitchLeft()
     {
         Weapons[index].SetActive(false);
+        Colliders[index].SetActive(false);
         index -= 1;
         if(index<0)
         {
             index = Weapons.Count - 1;
         }
         Weapons[index].SetActive(true);
+        Colliders[index].SetActive(true);
     }
 
     void SwitchRight()
     {
         Weapons[index].SetActive(false);
+        Colliders[index].SetActive(false);
         index += 1;
         if (index > Weapons.Count - 1)
         {
             index = 0;
         }
         Weapons[index].SetActive(true);
+        Colliders[index].SetActive(true);
     }
 
 

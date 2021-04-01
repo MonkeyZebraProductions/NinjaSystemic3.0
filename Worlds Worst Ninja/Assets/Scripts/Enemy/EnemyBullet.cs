@@ -7,10 +7,12 @@ public class EnemyBullet : MonoBehaviour
     public float speed = 15f;
     public int damage = 5;
     private Rigidbody2D rb;
+    private PlayerMovement _pm;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        _pm = FindObjectOfType<PlayerMovement>();
     }
 
     private void Update()
@@ -28,6 +30,7 @@ public class EnemyBullet : MonoBehaviour
 
         if(collision.tag == "Player")
         {
+            _pm.Health -= damage;
             Destroy(gameObject);
         }
     }

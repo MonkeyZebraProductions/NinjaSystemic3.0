@@ -21,7 +21,7 @@ public class Arrow : MonoBehaviour
 
     private bool _hitground, _hitenemy, _hitwall;
 
-    public GameObject Debris, Sound, Particles, BurstPart;
+    public GameObject Sound, Particles, BurstPart;
 
     public Transform Spawner;
 
@@ -110,13 +110,13 @@ public class Arrow : MonoBehaviour
         Instantiate(BurstPart, transform.position, Quaternion.identity);
         if (_hitground == true)
         {
-            Instantiate(Debris, hitGround.point, Quaternion.identity);
+            
             Instantiate(Sound, hitGround.point, Quaternion.identity);
             Instantiate(Particles, hitGround.point, Quaternion.identity);
         }
         if (_hitwall == true)
         {
-            Instantiate(Debris, hitWall.point, Quaternion.identity);
+            
             Instantiate(Sound, hitWall.point, Quaternion.identity);
             Instantiate(Particles, hitWall.point, Quaternion.identity);
         }

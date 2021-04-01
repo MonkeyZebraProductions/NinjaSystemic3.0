@@ -17,7 +17,7 @@ public class EnemyHearing : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "ExplosionSound")
+        if(collision.gameObject.tag == "ExplosionSound")
         {
             Transform targetPos = collision.transform;
             GetComponentInParent<EnemyAI>().StoreTargetPos(targetPos);

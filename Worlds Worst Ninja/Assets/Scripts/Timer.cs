@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,15 +31,8 @@ public class Timer : MonoBehaviour
         timeSpent+= Time.deltaTime;
         minutes = Mathf.FloorToInt(timeSpent / 60);
         seconds = Mathf.FloorToInt(timeSpent % 60);
-        
-        if((timeSpent*minutes)+timeSpent<10)
-        {
-            TimerText.text = "Time: " + minutes + ":0" + seconds;
-        }
-        else
-        {
-            TimerText.text = "Time: " + minutes + ":" + seconds;
-        }
+
+        TimerText.text = "Time: " + TimeSpan.FromSeconds(timeSpent).ToString("mm\\:ss\\.fff");
 
         //ControlScreen.SetActive(_controlScreen);
 
@@ -67,14 +61,10 @@ public class Timer : MonoBehaviour
         if(collision.gameObject.layer==11)
         {
             Time.timeScale = 0;
-            if ((timeSpent * minutes) + timeSpent < 10)
-            {
-                ResultText.text = "Congrats! You beat the level in " + minutes + ":0" + seconds;
-            }
-            else
-            {
-                ResultText.text = "Congrats! You beat the level in " + minutes + ":" + seconds;
-            }
+            
+                ResultText.text = "Congrats! You beat the level in " + TimeSpan.FromSeconds(timeSpent).ToString("mm\\:ss\\.fff");
+
+        
             ResultScreen.SetActive(true);
         }
         

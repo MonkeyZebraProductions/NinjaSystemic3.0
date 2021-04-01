@@ -17,7 +17,7 @@ public class TriggerWall : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_hasLeftLeft);
+        
         
         if(_hasLeftLeft && !_pm._isJumping)
         {
