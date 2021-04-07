@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyDamageAndKnockback : MonoBehaviour
 {
     public float Health=10f;
+    public int score = 10;
 
     public float damageReductionValue = 2f;
 
@@ -43,7 +44,7 @@ public class EnemyDamageAndKnockback : MonoBehaviour
 
         if (Health <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
 
         Debug.Log("Hi");
@@ -57,5 +58,12 @@ public class EnemyDamageAndKnockback : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Die()
+    {
+        FindObjectOfType<PlayerScore>().UpdateScore(score);
+
+        Destroy(gameObject);
     }
 }

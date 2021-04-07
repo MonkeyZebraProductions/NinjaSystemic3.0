@@ -219,7 +219,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 512
-  speed: 500
+  speed: 1250
   nextWaypointDist: 1
   jumpNodeHeightRequirement: 0.8
   jumpModifier: 40
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ac2cb28ca27894a9e54b1a94d60c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceRequired: 10
   fireRate: 1
   enemyDamage: 10
   bulletPrefab: {fileID: 3846328035569677934, guid: 06eee684e35123449885b4a17272dedf, type: 3}
