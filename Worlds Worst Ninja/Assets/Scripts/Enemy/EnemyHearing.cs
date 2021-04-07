@@ -21,6 +21,8 @@ public class EnemyHearing : MonoBehaviour
         {
             Transform targetPos = collision.transform;
             GetComponentInParent<EnemyAI>().StoreTargetPos(targetPos);
+
+            GetComponentInParent<EnemyEmotions>().SoundHeard();
         }
     }
 
