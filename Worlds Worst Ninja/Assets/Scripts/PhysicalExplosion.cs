@@ -11,11 +11,7 @@ public class PhysicalExplosion : MonoBehaviour
 
     public LayerMask hitLayer;
 
-    public Vector2 ExplosionDirection;
-
-    private Collider2D[] objects;
-
-    private bool _isExploding;
+  
 
     private PlayerMovement _pm;
     // Start is called before the first frame update
@@ -25,17 +21,7 @@ public class PhysicalExplosion : MonoBehaviour
         _pm = FindObjectOfType<PlayerMovement>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.layer==11)
-        {
-            Debug.Log("Hai");
-            ExplosionDirection = (collision.gameObject.transform.position - transform.position);
-            ExplosionDirection.Normalize();
-            _pm._isExplosion = true;
-        }
-    }
-
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

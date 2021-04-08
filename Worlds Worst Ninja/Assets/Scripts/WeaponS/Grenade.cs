@@ -30,4 +30,15 @@ public class Grenade : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 13)
+        {
+            Vector2 ExplosionDirection;
+            ExplosionDirection = (collision.gameObject.transform.position - transform.position);
+            ExplosionDirection.Normalize();
+            _rb.AddForce(ExplosionDirection * 1000f);
+        }
+    }
 }

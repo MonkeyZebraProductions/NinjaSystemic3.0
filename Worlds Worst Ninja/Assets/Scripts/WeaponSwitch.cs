@@ -60,7 +60,45 @@ public class WeaponSwitch : MonoBehaviour
         Colliders[index].SetActive(true);
     }
 
+    public void Set1()
+    {
+        Weapons[index].SetActive(false);
+        Colliders[index].SetActive(false);
+        _pm._hasSwitched = true;
+        index = 0;
+        Weapons[0].SetActive(true);
+        Colliders[0].SetActive(true);
+    }
 
+    public void Set2()
+    {
+        Weapons[index].SetActive(false);
+        Colliders[index].SetActive(false);
+        _pm._hasSwitched = true;
+        index = 1;
+        Weapons[1].SetActive(true);
+        Colliders[1].SetActive(true);
+    }
+
+    public void Set3()
+    {
+        Weapons[index].SetActive(false);
+        Colliders[index].SetActive(false);
+        _pm._hasSwitched = true;
+        index = 2;
+        Weapons[2].SetActive(true);
+        Colliders[2].SetActive(true);
+    }
+
+    public void Set4()
+    {
+        Weapons[index].SetActive(false);
+        Colliders[index].SetActive(false);
+        _pm._hasSwitched = true;
+        index = 3;
+        Weapons[3].SetActive(true);
+        Colliders[3].SetActive(true);
+    }
     private void OnEnable()
     {
         inputs.Enable();

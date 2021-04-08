@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
    
 
     public TMP_Text TimerText,ResultText;
-    public GameObject ResultScreen,ControlScreen;
+    public GameObject ResultScreen,ControlScreen,WeaponWheel;
     public float timeSpent, minutes, seconds;
     private bool _controlScreen;
 
@@ -21,10 +21,21 @@ public class Timer : MonoBehaviour
 
     public UnityEvent Reload, Back;
 
+    private Controls inputs;
+
+    private void Awake()
+    {
+        inputs = new Controls();
+        inputs.Player.Restart.started += context => Re();
+        inputs.Player.WeaopnWheel.started += context => ActivateSwitch();
+        inputs.Player.WeaopnWheel.canceled += context => DeactivateSwitch();
+    }
+
     void Start()
     {
         Time.timeScale = 1;
         pm = FindObjectOfType<PlayerMovement>();
+        
     }
     private void Update()
     {
@@ -56,6 +67,23 @@ public class Timer : MonoBehaviour
 
     }
 
+    void Re()
+    {
+        Debug.Log("y0");
+        SceneManager.LoadScene(0);
+    }
+
+    void ActivateSwitch()
+    {
+        Time.timeScale = 0.01f;
+        WeaponWheel.SetActive(true);
+    }
+
+    void DeactivateSwitch()
+    {
+        Time.timeScale = 1;
+        WeaponWheel.SetActive(false);
+    } 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer==11)
@@ -68,5 +96,15 @@ public class Timer : MonoBehaviour
             ResultScreen.SetActive(true);
         }
         
+    }
+
+    private void OnEnable()
+    {
+        inputs.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.Disable();
     }
 }

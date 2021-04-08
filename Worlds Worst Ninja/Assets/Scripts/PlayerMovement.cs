@@ -27,9 +27,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 move,look;
 
-    private bool _isGrounded,_canMove,_firingSingle,_hasSwitched;
+    private bool _isGrounded,_canMove,_firingSingle;
 
-    public bool IsRightWalled, IsLeftWalled, IsVisable, _canFire, _isAuto, _isFiring,_isExplosion, _isJumping;
+    public bool IsRightWalled, IsLeftWalled, IsVisable, _canFire, _isAuto, _isFiring,_isExplosion, _isJumping, _hasSwitched;
 
     private float _jumpMultiplyer, ExplosionMultiplier = 1;
    
@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 ExplosionDirection;
 
     private PhysicalExplosion Expl;
+    private ReloadVisual _RV;
 
     public SpriteRenderer sprite;
     private Color colour;
@@ -72,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
         arrow = FindObjectOfType<Arrow>();
         
         Expl = FindObjectOfType<PhysicalExplosion>();
+
+        _RV = FindObjectOfType<ReloadVisual>();
 
         _jumps = MaxJumps;
         _overheatStep = 1;
@@ -240,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
             arrow.CreateDebris();
             arrow.HitEnemy();
             _canFire = false;
-            
+            _RV.Rest();
             _reloadTime = 0;
         }
         else if(_isFiring)
@@ -264,6 +267,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if(_hasSwitched)
             {
+                _RV.ReSwitch();
                 _reloadTime = _WS.ReloadTime;
             }
             _reloadTime += Time.deltaTime;
