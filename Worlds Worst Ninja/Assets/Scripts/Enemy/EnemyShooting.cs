@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyShooting : MonoBehaviour
 {
     // Distance required to start attacking the player
-    private float distanceRequired = 5f;
+    public float distanceRequired = 5f;
 
     private bool canShoot = true;
 
