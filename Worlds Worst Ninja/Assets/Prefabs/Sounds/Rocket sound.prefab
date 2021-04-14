@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7644380317879965776}
   m_Layer: 0
   m_Name: Rocket sound
-  m_TagString: Untagged
+  m_TagString: ExplosionSound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

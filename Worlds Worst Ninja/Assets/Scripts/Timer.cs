@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class Timer : MonoBehaviour
    
 
     public TMP_Text TimerText,ResultText;
-    public GameObject ResultScreen,ControlScreen;
+    public GameObject ResultScreen,ControlScreen,WeaponWheel;
     public float timeSpent, minutes, seconds;
     private bool _controlScreen;
 
@@ -20,25 +21,29 @@ public class Timer : MonoBehaviour
 
     public UnityEvent Reload, Back;
 
+    private Controls inputs;
+
+    private void Awake()
+    {
+        inputs = new Controls();
+        inputs.Player.Restart.started += context => Re();
+        inputs.Player.WeaopnWheel.started += context => ActivateSwitch();
+        inputs.Player.WeaopnWheel.canceled += context => DeactivateSwitch();
+    }
+
     void Start()
     {
         Time.timeScale = 1;
         pm = FindObjectOfType<PlayerMovement>();
+        
     }
     private void Update()
     {
         timeSpent+= Time.deltaTime;
         minutes = Mathf.FloorToInt(timeSpent / 60);
         seconds = Mathf.FloorToInt(timeSpent % 60);
-        
-        if((timeSpent*minutes)+timeSpent<10)
-        {
-            TimerText.text = "Time: " + minutes + ":0" + seconds;
-        }
-        else
-        {
-            TimerText.text = "Time: " + minutes + ":" + seconds;
-        }
+
+        TimerText.text = "Time: " + TimeSpan.FromSeconds(timeSpent).ToString("mm\\:ss\\.fff");
 
         //ControlScreen.SetActive(_controlScreen);
 
@@ -62,21 +67,44 @@ public class Timer : MonoBehaviour
 
     }
 
+    void Re()
+    {
+        Debug.Log("y0");
+        SceneManager.LoadScene(0);
+    }
+
+    void ActivateSwitch()
+    {
+        Time.timeScale = 0.01f;
+        WeaponWheel.SetActive(true);
+    }
+
+    void DeactivateSwitch()
+    {
+        Time.timeScale = 1;
+        WeaponWheel.SetActive(false);
+    } 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer==11)
         {
             Time.timeScale = 0;
-            if ((timeSpent * minutes) + timeSpent < 10)
-            {
-                ResultText.text = "Congrats! You beat the level in " + minutes + ":0" + seconds;
-            }
-            else
-            {
-                ResultText.text = "Congrats! You beat the level in " + minutes + ":" + seconds;
-            }
+            
+                ResultText.text = "Congrats! You beat the level in " + TimeSpan.FromSeconds(timeSpent).ToString("mm\\:ss\\.fff");
+
+        
             ResultScreen.SetActive(true);
         }
         
+    }
+
+    private void OnEnable()
+    {
+        inputs.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputs.Disable();
     }
 }

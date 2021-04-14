@@ -73,6 +73,22 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3ec882f-74ce-4568-b9bf-afc3c1ec124e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Weaopn Wheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""e080bf66-759c-44a4-a7b2-7a3ae58c95f6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -381,6 +397,28 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Swich Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9bad8e58-29ed-43d0-9558-25e21b289be1"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c2af162-12c3-4068-a74f-5c7970a2f1a1"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weaopn Wheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -965,6 +1003,8 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_SwitchLeft = m_Player.FindAction("Switch Left", throwIfNotFound: true);
         m_Player_SwichRight = m_Player.FindAction("Swich Right", throwIfNotFound: true);
+        m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
+        m_Player_WeaopnWheel = m_Player.FindAction("Weaopn Wheel", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1033,6 +1073,8 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_SwitchLeft;
     private readonly InputAction m_Player_SwichRight;
+    private readonly InputAction m_Player_Restart;
+    private readonly InputAction m_Player_WeaopnWheel;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -1044,6 +1086,8 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @SwitchLeft => m_Wrapper.m_Player_SwitchLeft;
         public InputAction @SwichRight => m_Wrapper.m_Player_SwichRight;
+        public InputAction @Restart => m_Wrapper.m_Player_Restart;
+        public InputAction @WeaopnWheel => m_Wrapper.m_Player_WeaopnWheel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1074,6 +1118,12 @@ public class @Controls : IInputActionCollection, IDisposable
                 @SwichRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwichRight;
                 @SwichRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwichRight;
                 @SwichRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwichRight;
+                @Restart.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRestart;
+                @Restart.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRestart;
+                @Restart.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRestart;
+                @WeaopnWheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaopnWheel;
+                @WeaopnWheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaopnWheel;
+                @WeaopnWheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaopnWheel;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1099,6 +1149,12 @@ public class @Controls : IInputActionCollection, IDisposable
                 @SwichRight.started += instance.OnSwichRight;
                 @SwichRight.performed += instance.OnSwichRight;
                 @SwichRight.canceled += instance.OnSwichRight;
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
+                @WeaopnWheel.started += instance.OnWeaopnWheel;
+                @WeaopnWheel.performed += instance.OnWeaopnWheel;
+                @WeaopnWheel.canceled += instance.OnWeaopnWheel;
             }
         }
     }
@@ -1262,6 +1318,8 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSwitchLeft(InputAction.CallbackContext context);
         void OnSwichRight(InputAction.CallbackContext context);
+        void OnRestart(InputAction.CallbackContext context);
+        void OnWeaopnWheel(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

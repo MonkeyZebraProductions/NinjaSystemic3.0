@@ -96,6 +96,11 @@ public class EnemyAI : MonoBehaviour
             if(canLookAround)
                 StartCoroutine(LookAround());
         }
+
+        if (playerSeen)
+        {
+            GetComponent<EnemyEmotions>().PlayerSeen();
+        }
     }
 
     private void FixedUpdate()

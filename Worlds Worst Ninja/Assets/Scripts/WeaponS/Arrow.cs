@@ -21,7 +21,7 @@ public class Arrow : MonoBehaviour
 
     private bool _hitground, _hitenemy, _hitwall;
 
-    public GameObject Debris, Sound, Particles, BurstPart;
+    public GameObject Sound, Particles, BurstPart;
 
     public Transform Spawner;
 
@@ -34,7 +34,7 @@ public class Arrow : MonoBehaviour
 
     private EnemyDamageAndKnockback _EDK;
 
-    private GameObject _currentEnemy;
+    private DectectEnemy _DE;
 
     private LineRenderer line;
 
@@ -48,7 +48,7 @@ public class Arrow : MonoBehaviour
     {
         _pm = FindObjectOfType<PlayerMovement>();
         line = GetComponent<LineRenderer>();
-
+        
     }
 
  
@@ -58,6 +58,7 @@ public class Arrow : MonoBehaviour
     void FixedUpdate()
     {
         _WS = FindObjectOfType<WeaponStat>();
+        _DE = FindObjectOfType<DectectEnemy>();
         if(_hitenemy)
         {
             maxRadius=Vector2.Distance(transform.position,hitEnemy.point);
@@ -70,6 +71,7 @@ public class Arrow : MonoBehaviour
         Sound = _WS.Sound;
         Particles = _WS.Particles;
         BurstPart = _WS.BurstPart;
+        
         Vector2 mousePosition = inputs.Player.Look.ReadValue<Vector2>();
 
 
@@ -81,21 +83,19 @@ public class Arrow : MonoBehaviour
 
         angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        _hitBack = Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsBack);
-
-        _hitFront = Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsFront);
+        
 
         _hitground = hitGround = Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsGround);
 
         _hitwall = hitWall = Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsWall);
 
-        _hitenemy = hitEnemy=Physics2D.Raycast(transform.position, dir, maxRadius, WhatIsEnemy);
+       
         line.SetPosition(1, new Vector3(maxRadius, 0, 0));
     }
 
     public void HitEnemy()
     {
-        if(_hitenemy)
+        if(_DE.HasHit)
         {
             _EDK = FindObjectOfType<EnemyDamageAndKnockback>();
             _EDK.HitEnemy();
@@ -110,13 +110,13 @@ public class Arrow : MonoBehaviour
         Instantiate(BurstPart, transform.position, Quaternion.identity);
         if (_hitground == true)
         {
-            Instantiate(Debris, hitGround.point, Quaternion.identity);
+            
             Instantiate(Sound, hitGround.point, Quaternion.identity);
             Instantiate(Particles, hitGround.point, Quaternion.identity);
         }
         if (_hitwall == true)
         {
-            Instantiate(Debris, hitWall.point, Quaternion.identity);
+            
             Instantiate(Sound, hitWall.point, Quaternion.identity);
             Instantiate(Particles, hitWall.point, Quaternion.identity);
         }

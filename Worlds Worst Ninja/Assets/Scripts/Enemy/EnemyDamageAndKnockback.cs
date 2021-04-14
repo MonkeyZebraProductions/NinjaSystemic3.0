@@ -8,10 +8,13 @@ public class EnemyDamageAndKnockback : MonoBehaviour
 
     public float damageReductionValue = 2f;
 
+    public float ExplosionDamage=9f;
+
     public bool IsFront, IsBack;
     private Rigidbody2D _rb;
     private Arrow arrow;
     private WeaponStat _WS;
+    private Vector2 ExplosionDirection;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +30,8 @@ public class EnemyDamageAndKnockback : MonoBehaviour
     // Update is called once per frame
     public void HitEnemy()
     {
-        if(arrow._hitFront)
-        {
-            _rb.AddForceAtPosition(arrow.dir * 20f * _WS.WeaponForce, arrow.hitEnemy.point);
-        }
-        else
-        {
-            _rb.AddForceAtPosition(arrow.dir * 100f * _WS.WeaponForce, arrow.hitEnemy.point);
-        }
 
+        _rb.AddForce(arrow.dir * 100f * _WS.WeaponForce);
         if (GetComponent<EnemyAI>().playerSeen == false)
             Health -= _WS.WeaponDamage;
         else
@@ -56,6 +52,19 @@ public class EnemyDamageAndKnockback : MonoBehaviour
         if(Health <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer==13)
+        {
+            Health -= ExplosionDamage;
+            ExplosionDirection = (collision.gameObject.transform.position - transform.position);
+            ExplosionDirection.Normalize();
+            _rb.AddForce(ExplosionDirection * 1000f);
         }
     }
 }

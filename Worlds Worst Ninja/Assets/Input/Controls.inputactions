@@ -60,6 +60,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "d3ec882f-74ce-4568-b9bf-afc3c1ec124e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Weaopn Wheel",
+                    "type": "Button",
+                    "id": "e080bf66-759c-44a4-a7b2-7a3ae58c95f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -368,6 +384,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Swich Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9bad8e58-29ed-43d0-9558-25e21b289be1",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c2af162-12c3-4068-a74f-5c7970a2f1a1",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Weaopn Wheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

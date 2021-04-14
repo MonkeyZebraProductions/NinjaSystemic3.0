@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyShooting : MonoBehaviour
 {
     // Distance required to start attacking the player
-    private float distanceRequired = 5f;
+    public float distanceRequired = 5f;
 
     private bool canShoot = true;
 
@@ -16,7 +16,7 @@ public class EnemyShooting : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
 
-    public Text error;
+    //public Text error;
 
     [Header("For testing only")]
     public bool forcedShoot = false;
@@ -36,7 +36,7 @@ public class EnemyShooting : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
 
-        error.text = distanceToPlayer.ToString();
+        //error.text = distanceToPlayer.ToString();
 
         if(distanceToPlayer <= distanceRequired)
         {
