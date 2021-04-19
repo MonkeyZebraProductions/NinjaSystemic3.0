@@ -30,6 +30,6 @@ public class ReloadVisual : MonoBehaviour
 
    public void ReSwitch()
    {
-        animator.Play("Circle", -1, 1f);
+        animator.Play("Circle", -1, 0.8f);
     }
 }

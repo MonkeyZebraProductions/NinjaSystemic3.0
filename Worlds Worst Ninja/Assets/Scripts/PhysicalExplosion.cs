@@ -11,12 +11,14 @@ public class PhysicalExplosion : MonoBehaviour
 
     public LayerMask hitLayer;
 
-  
+    private AudioSource _as;
 
     private PlayerMovement _pm;
     // Start is called before the first frame update
     void Start()
     {
+        _as = GetComponent<AudioSource>();
+        _as.Play();
         Destroy(this.gameObject, 0.2f);
         _pm = FindObjectOfType<PlayerMovement>();
     }

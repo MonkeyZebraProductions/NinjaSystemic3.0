@@ -108,6 +108,7 @@ public class Arrow : MonoBehaviour
 
         Instantiate(Sound, transform.position, Quaternion.identity);
         Instantiate(BurstPart, transform.position, Quaternion.identity);
+        
         if (_hitground == true)
         {
             

@@ -169,6 +169,11 @@ public class PlayerMovement : MonoBehaviour
                 _rb2D.AddForce(new Vector2(arrow.dir.x, arrow.dir.y) * DefaultForce * _WS.WeaponForce * -1f);
                 arrow.CreateDebris();
                 arrow.HitEnemy();
+                //_WS.WeaponSound.Play();
+            }
+            else
+            {
+                _WS.WeaponSound.Stop();
             }
             _overHeat += _overheatStep;
             if(_overHeat>MaxOverheat)
@@ -179,11 +184,17 @@ public class PlayerMovement : MonoBehaviour
         else if(_overHeat>0)
         {
             _overHeat -= _overheatStep * 2;
+            
         }
+        //else
+        //{
+        //    _WS.WeaponSound.Stop();
+        //}
         if(_firingSingle)
         {
             _rb2D.AddForce(new Vector2(arrow.dir.x, arrow.dir.y) * _WS.WeaponForce * DefaultForce * -1f);
             _hangTime -= Time.deltaTime;
+            
             if (_hangTime < 0)
             {
                 
@@ -230,35 +241,47 @@ public class PlayerMovement : MonoBehaviour
 
     private void Fire()
     {
+        
         _isFiring = true;
         if(_reloadTime>= _WS.ReloadTime)
         {
             _canFire = true;
-            
+            _WS.WeaponSound.Play();
+
         }
         if (_canFire == true && _isAuto == false)
         {
+            
             _hangTime = HangTimer;
             _firingSingle = true;
             arrow.CreateDebris();
             arrow.HitEnemy();
+            
             _canFire = false;
             _RV.Rest();
             _reloadTime = 0;
+            
         }
         else if(_isFiring)
         {
             _canFire = true;
+            //_WS.WeaponSound.Play();
         }
 
 
     }
 
+    
     //Checks if Fire button is let go
     private void FireCancel()
     {
         _canFire = false;
         _isFiring = false;
+        if(_isAuto)
+        {
+            _WS.WeaponSound.Stop();
+        }
+        
     }
 
     void Reload()
@@ -268,7 +291,7 @@ public class PlayerMovement : MonoBehaviour
             if(_hasSwitched)
             {
                 _RV.ReSwitch();
-                _reloadTime = _WS.ReloadTime;
+                _reloadTime = _WS.ReloadTime*0.8f;
             }
             _reloadTime += Time.deltaTime;
         }
@@ -284,7 +307,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(Switch());
     }
 
-    IEnumerator Switch()
+    public IEnumerator Switch()
     {
         _hasSwitched = true;
         yield return new WaitForSeconds(0.1f);

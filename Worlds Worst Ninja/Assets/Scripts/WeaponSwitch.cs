@@ -64,7 +64,7 @@ public class WeaponSwitch : MonoBehaviour
     {
         Weapons[index].SetActive(false);
         Colliders[index].SetActive(false);
-        _pm._hasSwitched = true;
+        StartCoroutine(_pm.Switch());
         index = 0;
         Weapons[0].SetActive(true);
         Colliders[0].SetActive(true);
@@ -74,7 +74,7 @@ public class WeaponSwitch : MonoBehaviour
     {
         Weapons[index].SetActive(false);
         Colliders[index].SetActive(false);
-        _pm._hasSwitched = true;
+        StartCoroutine(_pm.Switch());
         index = 1;
         Weapons[1].SetActive(true);
         Colliders[1].SetActive(true);
@@ -84,7 +84,7 @@ public class WeaponSwitch : MonoBehaviour
     {
         Weapons[index].SetActive(false);
         Colliders[index].SetActive(false);
-        _pm._hasSwitched = true;
+        StartCoroutine(_pm.Switch());
         index = 2;
         Weapons[2].SetActive(true);
         Colliders[2].SetActive(true);
@@ -94,7 +94,7 @@ public class WeaponSwitch : MonoBehaviour
     {
         Weapons[index].SetActive(false);
         Colliders[index].SetActive(false);
-        _pm._hasSwitched = true;
+        StartCoroutine(_pm.Switch());
         index = 3;
         Weapons[3].SetActive(true);
         Colliders[3].SetActive(true);
